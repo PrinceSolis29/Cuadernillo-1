@@ -1,0 +1,28 @@
+nombre_curso = "Programacion II" # Nombre del curso 
+sesion = 1
+esta_activa = true
+
+print(nombre_curso) # print() muestra en pantalla el valor de la variable
+print(type(sesion), type(esta_activa))
+
+#Una cadena literal es la forma de representar datos de texto directamente en el codigo fuente. se puede usar comillas simples o dobles.
+# - Encerrado: todo lo que se encuentre dentro de las comillas se considera para parte de la cadena. Esto incluye letras, numeros, simbolos y espacios en blanco
+# proposito: las cadenas se utilizan para representar texto en un programa pueden contener palabas, frases, oraciones o cualqueier otro tipo de informacion textual.
+
+#ejemplo
+
+variable = "Hello word"
+print(variable)
+#ejemplo de cadena con comillas dobles
+
+#example 1: using double quatos to define a string
+print("hello, world") #output: python is fun 
+
+#exmple 3: string containing number and symbols
+print("123 main street #45")
+
+# por que print () es fybdanebtar oir varuas razones:
+#1. Salida: es la forma principal de mostrar informacion al usuario o al desarrollador
+
+
+
