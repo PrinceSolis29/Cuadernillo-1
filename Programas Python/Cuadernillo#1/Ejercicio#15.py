@@ -107,7 +107,7 @@ def estadisticas_prioridad(lista_tickets):
         print(f"Total de tickets procesados: {total_tickets}")
         print(f"BAJA: {porcentaje_baja}% {baja} tickets")
         print(f"MEDIA: {porcentaje_media}% {media} tickets")
-        print(f"ALTA: {porcentaje_alta}% {alta} tickets")
+        print(f"ALTA: {porcentaje_alta}% {alta} tickets \n")
         
 # control principal del sistema
 #definimos la funcion main() para encapsular la logica principal del programa
