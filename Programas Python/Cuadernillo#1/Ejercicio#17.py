@@ -1,66 +1,32 @@
-# Ejercicio 18: Filtrado de tickets por prioridad
+# Usamos un diccionario vacío que aprenderá las categorías sobre la marcha.
+conteo_categorias = {}
 
-# 1. Función modular: Recibe minúsculas o mayúsculas, pero busca en mayúsculas
-def filtrar_por_prioridad(tickets, prioridad):
-    lista_filtrada = []
-    # Estandarizamos a mayúsculas para que la búsqueda funcione siempre
-    prioridad_limpia = prioridad.strip().upper()
-    
-    for ticket_individual in tickets:
-        if ticket_individual["prioridad"] == prioridad_limpia:
-            lista_filtrada.append(ticket_individual)
-            
-    return lista_filtrada
+print("--- Registro Dinámico de Categorías de Tickets ---")
+# se solicita la primera categoría. Escribir '0' sirve para terminar el registro.
+categoria_input = input("Ingrese la categoría del ticket (Ej: Redes, Software, Impresoras) o '0' para finalizar: ").strip().upper()
 
-
-# 2. Programa Principal - Registro de Datos (Lógica de tu Ejercicio 12)
-tickets = []
-contador_id = 1
-
-print("--- Registro Inicial de Tickets para Filtrado ---")
-solicitante = input("Ingrese el nombre del solicitante (o '0' para finalizar el registro): ").strip()
-
-while solicitante != "0":
-    prioridad = input("Ingrese la prioridad (BAJA, MEDIA, ALTA): ").strip().upper()
-    
-    while prioridad not in ["BAJA", "MEDIA", "ALTA"]:
-        print("Error: Prioridad inválida. Intente de nuevo.")
-        prioridad = input("Ingrese la prioridad (BAJA, MEDIA, ALTA): ").strip().upper()
-        
-    ticket = {
-        "id": contador_id,
-        "solicitante": solicitante,
-        "prioridad": prioridad
-    }
-    tickets.append(ticket)
-    print(f"-> Ticket registrado con éxito. ID Asignado: {contador_id}")
-    contador_id += 1
-    
-    print("-------------------------------------------------")
-    solicitante = input("Ingrese el nombre del siguiente solicitante (o '0' para finalizar): ").strip()
-
-
-print("\n--- Módulo de Filtrado de Tickets (Vista del Supervisor) ---")
-if len(tickets) == 0:
-    print("No hay tickets en memoria para realizar un filtrado.")
-else:
-    # 🌟 AQUÍ SE CUMPLE TU CASO DE PRUEBA: El usuario puede escribir "alta" o "baja" en minúsculas
-    prioridad_supervisor = input("Ingrese la prioridad que desea filtrar (BAJA, MEDIA, ALTA): ")
-    
-    # Pasamos la entrada tal cual a la función
-    resultados_busqueda = filtrar_por_prioridad(tickets, prioridad_supervisor)
-    
-    # Creamos una variable en mayúsculas únicamente para los textos de salida de la pantalla
-    prioridad_salida_mayuscula = prioridad_supervisor.strip().upper()
-    
-    if len(resultados_busqueda) > 0:
-        # 🌟 Salida exacta Caso 1: "Tickets con prioridad ALTA: 2"
-        print(f"\nTickets con prioridad {prioridad_salida_mayuscula}: {len(resultados_busqueda)}, seguido de los dos tickets.")
-        print("=" * 65)
-        for t in resultados_busqueda:
-            print(f"🔹 ID: {t['id']} | Solicitante: {t['solicitante']} | Prioridad: {t['prioridad']}")
-        print("=" * 65)
+# Bucle interactivo idéntico al de tu Ejercicio 10
+while categoria_input != "0":
+    if categoria_input != "":
+        # el metodo .get() permite obtener el valor de una clave en el diccionario, y si no existe, devuelve un valor por defecto (en este caso 0).
+        # Si la categoría no existe en el diccionario, devuelve 0 y le suma 1
+        # Si ya existía, toma el número anterior y le suma 1
+        conteo_categorias[categoria_input] = conteo_categorias.get(categoria_input, 0) + 1
+        print(f"-> Registrado en la categoría: {categoria_input}")
     else:
-        # 🌟 Salida exacta Caso 2: "No hay tickets con prioridad BAJA."
-        print(f"No hay tickets con prioridad {prioridad_salida_mayuscula}.")
+        print("Error: No se permiten categorías vacías.")
+        
+    print("-------------------------------------------------")
+    categoria_input = input("Ingrese la categoría del siguiente ticket (o '0' para finalizar): ").strip().upper()
+
+print("\n--- Reporte Final de Categorías ---")
+
+# validación de diccionario vacío exigida
+if len(conteo_categorias) == 0:
+    print("No hay categorías registradas.")
+else:
+    # Recorremos con .items() y ordenamos alfabéticamente con sorted()
+    # mostramos cada categoría y su cantidad de tickets registrados
+    for categoria, cantidad in sorted(conteo_categorias.items()):
+        print(f"{categoria}: {cantidad}\n")
 
