@@ -1,32 +1,70 @@
-# Ejercicio 17: Conteo por categoría con diccionario dinámico
-# Usamos un diccionario vacío que aprenderá las categorías sobre la marcha.
-conteo_categorias = {}
+# Ejercicio 18: Filtrado de tickets por prioridad
 
-print("--- Registro Dinámico de Categorías de Tickets ---")
-# se solicita la primera categoría. Escribir '0' sirve para terminar el registro.
-categoria_input = input("Ingrese la categoría del ticket (Ej: Redes, Software, Impresoras) o '0' para finalizar: ").strip().upper()
+# 1. Definición de la función modular requerida
+def filtrar_por_prioridad(tickets, prioridad):
+    # La función debe devolver una lista nueva, no imprimir ni modificar la recibida
+    lista_filtrada = []
+    # Normalizar la prioridad recibida antes de comparar
+    prioridad_limpia = prioridad.strip().upper()
+    
+    # Recorrido lineal buscando múltiples coincidencias
+    for ticket_individual in tickets:
+        if ticket_individual["prioridad"] == prioridad_limpia:
+            lista_filtrada.append(ticket_individual)
+            
+    return lista_filtrada  # Regresamos la lista con las coincidencias encontradas
 
-# Bucle interactivo idéntico al de tu Ejercicio 10
-while categoria_input != "0":
-    if categoria_input != "":
-        # el metodo .get() permite obtener el valor de una clave en el diccionario, y si no existe, devuelve un valor por defecto (en este caso 0).
-        # Si la categoría no existe en el diccionario, devuelve 0 y le suma 1
-        # Si ya existía, toma el número anterior y le suma 1
-        conteo_categorias[categoria_input] = conteo_categorias.get(categoria_input, 0) + 1
-        print(f"-> Registrado en la categoría: {categoria_input}")
-    else:
-        print("Error: No se permiten categorías vacías.")
+
+# 2. Programa Principal - Módulo de Registro (Basado exactamente en tu Ejercicio 12)
+tickets = []
+contador_id = 1
+
+print("--- Registro Inicial de Tickets para Filtrado ---")
+solicitante = input("Ingrese el nombre del solicitante (o '0' para finalizar el registro): ").strip()
+
+# Bucle dinámico con centinela para simular la base de datos en memoria
+while solicitante != "0":
+    prioridad = input("Ingrese la prioridad (BAJA, MEDIA, ALTA): ").strip().upper()
+    
+    # Validación interactiva de la prioridad (Siguiendo tu patrón del ejercicio 12)
+    while prioridad not in ["BAJA", "MEDIA", "ALTA"]:
+        print("Error: Prioridad inválida. Intente de nuevo.")
+        prioridad = input("Ingrese la prioridad (BAJA, MEDIA, ALTA): ").strip().upper()
         
+    # Creamos la estructura de diccionario requerida para este ejercicio (id, solicitante, prioridad)
+    ticket = {
+        "id": contador_id,
+        "solicitante": solicitante,
+        "prioridad": prioridad
+    }
+    tickets.append(ticket)
+    print(f"-> Ticket registrado con éxito. ID Asignado: {contador_id}")
+    contador_id += 1  # Incrementamos el ID para el siguiente ticket
+    
     print("-------------------------------------------------")
-    categoria_input = input("Ingrese la categoría del siguiente ticket (o '0' para finalizar): ").strip().upper()
+    solicitante = input("Ingrese el nombre del siguiente solicitante (o '0' para finalizar): ").strip()
 
-print("\n--- Reporte Final de Categorías ---")
 
-# validación de diccionario vacío exigida
-if len(conteo_categorias) == 0:
-    print("No hay categorías registradas.")
+print("\n--- Módulo de Filtrado de Tickets (Vista del Supervisor) ---")
+# Validación con len() para verificar que existan datos cargados en memoria
+if len(tickets) == 0:
+    print("No hay tickets en memoria para realizar un filtrado.")
 else:
-    # Recorremos con .items() y ordenamos alfabéticamente con sorted()
-    # mostramos cada categoría y su cantidad de tickets registrados
-    for categoria, cantidad in sorted(conteo_categorias.items()):
-        print(f"{categoria}: {cantidad}\n")
+    prioridad_supervisor = input("Ingrese la prioridad que desea filtrar (BAJA, MEDIA, ALTA): ")
+    
+    # Invocamos nuestra función modular pasándole los datos necesarios
+    resultados_busqueda = filtrar_por_prioridad(tickets, prioridad_supervisor)
+    
+    # Evaluamos los resultados devueltos por la función mediante len()
+    if len(resultados_busqueda) > 0:
+        # Mostramos cuántos se encontraron (Caso de prueba 1)
+        print(f"\nTickets con prioridad {prioridad_supervisor.strip().upper()}: {len(resultados_busqueda)}")
+        print("=" * 50)
+        
+        # Desplegamos todos los tickets que coincidieron con el filtro
+        for t in resultados_busqueda:
+            print(f"🔹 ID: {t['id']} | Solicitante: {t['solicitante']} | Prioridad: {t['prioridad']}")
+        print("=" * 50)
+    else:
+        # Mensaje claro cuando no hay coincidencias (Caso de prueba 2)
+        print(f"No hay tickets con prioridad {prioridad_supervisor.strip().upper()}.")
