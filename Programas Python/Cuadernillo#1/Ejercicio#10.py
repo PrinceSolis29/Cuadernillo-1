@@ -1,4 +1,5 @@
 # Ejercicio 10: Conteo de tickets por estado 
+# Inicializamos los contadores para cada estado
 abierto = 0
 en_proceso = 0
 resuelto = 0
