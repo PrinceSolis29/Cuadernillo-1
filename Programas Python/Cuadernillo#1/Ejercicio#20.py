@@ -37,7 +37,6 @@ while solicitante != "0":
     print("-------------------------------------------------")
     solicitante = input("Ingrese el nombre del siguiente solicitante (o '0' para finalizar): ").strip()
 
-
 # --- MÓDULO DE GENERACIÓN DEL REPORTE TABULAR ---
 print("\n==========================================================")
 print("                REPORTE DE CIERRE DE TURNO                ")
@@ -67,3 +66,4 @@ else:
     print(f"{'TOTAL DE HORAS DEL TURNO:':<48} | {acumulador_horas:<8.2f}")
 
 print("==========================================================")
+
