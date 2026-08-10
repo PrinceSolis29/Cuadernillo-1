@@ -1,4 +1,4 @@
-#Ejercicio 16: reporte de tiempos de atencion
+
 # Ejercicio 16: Reporte de tiempos de atención
 
 tiempos = []

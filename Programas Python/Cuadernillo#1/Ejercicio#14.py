@@ -28,5 +28,4 @@ for i in range(1, 4):
         print(f"-> ¡Éxito! El valor es VÁLIDO ({resultado})")
     else:
         print(f"-> ¡Error! El valor es INVÁLIDO ({resultado})")
-    # Separador visual para claridad en la salida    
-    #print("-" * 45)
+
